@@ -1,6 +1,11 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import 'constant.dart';
+import 'widgets/icon_content.dart';
+import 'widgets/reuseable_card.dart';
 
 class InputPage extends StatefulWidget {
   const InputPage({super.key});
@@ -9,7 +14,14 @@ class InputPage extends StatefulWidget {
   State<InputPage> createState() => _InputPageState();
 }
 
+enum Gender {
+  male,
+  famale,
+}
+
 class _InputPageState extends State<InputPage> {
+  Gender? selectedGender;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,52 +34,72 @@ class _InputPageState extends State<InputPage> {
             child: Row(
               children: [
                 Expanded(
-                  child: _ReuseableCard(
-                    colour: const Color(0xff1d1e33),
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedGender = Gender.male;
+                      });
+                    },
+                    child: ReuseableCard(
+                      colour: selectedGender == Gender.male
+                          ? App.kActiveCardColor
+                          : App.kInactiveCardColor,
+                      cardChild: IconContent(
+                        icon: FontAwesomeIcons.mars,
+                        label: 'MALE',
+                      ),
+                    ),
                   ),
                 ),
                 Expanded(
-                  child: _ReuseableCard(colour: const Color(0xff1d1e33)),
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedGender = Gender.famale;
+                      });
+                    },
+                    child: ReuseableCard(
+                      colour: selectedGender == Gender.famale
+                          ? App.kActiveCardColor
+                          : App.kInactiveCardColor,
+                      cardChild: IconContent(
+                        icon: FontAwesomeIcons.venus,
+                        label: 'FAMALE',
+                      ),
+                    ),
+                  ),
                 ),
               ],
             ),
           ),
           Expanded(
-            child: _ReuseableCard(colour: const Color(0xff1d1e33)),
+            child: ReuseableCard(
+              colour: App.kActiveCardColor,
+            ),
           ),
           Expanded(
             child: Row(
               children: [
                 Expanded(
-                  child: _ReuseableCard(colour: const Color(0xff1d1e33)),
+                  child: ReuseableCard(
+                    colour: App.kActiveCardColor,
+                  ),
                 ),
                 Expanded(
-                  child: _ReuseableCard(colour: const Color(0xff1d1e33)),
+                  child: ReuseableCard(
+                    colour: App.kActiveCardColor,
+                  ),
                 ),
               ],
             ),
           ),
+          Container(
+            height: 80.0,
+            width: double.infinity,
+            color: App.kBottomContainerColor,
+            margin: const EdgeInsets.only(top: 10.0),
+          ),
         ],
-      ),
-    );
-  }
-}
-
-class _ReuseableCard extends StatelessWidget {
-  const _ReuseableCard({
-    Key? key,
-    required this.colour,
-  }) : super(key: key);
-
-  final Color colour;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(15.0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10.0),
-        color: colour,
       ),
     );
   }
