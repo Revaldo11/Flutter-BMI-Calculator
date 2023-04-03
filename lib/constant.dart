@@ -7,6 +7,13 @@ class App {
 
   static TextStyle kLabelTextStyle = const TextStyle(
     fontSize: 18.0,
+    fontWeight: FontWeight.bold,
+    letterSpacing: 1.0,
     color: Color(0xFF8D8E98),
+  );
+
+  static TextStyle kNumberTextStyle = const TextStyle(
+    fontSize: 50.0,
+    fontWeight: FontWeight.w900,
   );
 }
