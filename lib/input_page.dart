@@ -25,8 +25,8 @@ enum Gender {
 class _InputPageState extends State<InputPage> {
   Gender? selectedGender;
   int height = 0;
-  int weight = 0;
-  int age = 0;
+  int weight = 66;
+  int age = 20;
 
   @override
   Widget build(BuildContext context) {
