@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
+import 'package:bmi_calculator/function_calculate.dart';
 import 'package:bmi_calculator/result_page.dart';
 import 'package:bmi_calculator/widgets/buttom_botton.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,7 @@ enum Gender {
 
 class _InputPageState extends State<InputPage> {
   Gender? selectedGender;
-  int height = 122;
+  int height = 0;
   int weight = 0;
   int age = 0;
 
@@ -112,7 +113,7 @@ class _InputPageState extends State<InputPage> {
                     ),
                     child: Slider(
                       value: height.toDouble(),
-                      min: 120.0,
+                      min: 0.0,
                       max: 220.0,
                       onChanged: (double value) {
                         setState(() {
@@ -225,8 +226,21 @@ class _InputPageState extends State<InputPage> {
           ),
           BottomButton(
             onPress: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ResultPage()));
+              CalculatorBrain calc = CalculatorBrain(
+                height: height,
+                weight: weight,
+              );
+
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ResultPage(
+                    bmiResult: calc.calculateBMI(),
+                    resultText: calc.getResult(),
+                    interpretation: calc.getInterpretation(),
+                  ),
+                ),
+              );
             },
             text: 'CALCULATE',
           ),
